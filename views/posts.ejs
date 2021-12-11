@@ -1,36 +1,62 @@
 <html lang="en">
+
 <head>
- <meta charset="UTF-8">
- <meta http-equiv="X-UA-Compatible" content="IE=edge">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <link rel="stylesheet" href="/style.css">
- <title>Posts</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/css/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="/js/script.js"></script>
+    <title>Posts</title>
 </head>
 
 <body>
-    <h1>Posts page</h1>
     <%- include('./partials/navbar.ejs') %>
 
-    <div class="posts list">
-        <h2>All posts</h2>
-            <% if (posts.length > 0) { %>
-                <% posts.forEach(post => { %>
+    <br>
+    <br>
 
-                    <a class="singlepost" href="/singlepost/<%= post.id %>">
-                        <h3 class="title">
-                            <%= post.title %>
-                    </h3>
-                    <p class="body">
-                        <%= post.body %>
-                    </p>
-                </a>
-                <% }) %>
-                    <% } else { %>
-                    <p>You did not post anything...</p>
-                    <% } %>
+    <div class="posts-list">
+        <% if (posts.length> 0) { %>
+        <% posts.forEach(post=> { %>
+
+        <div class="post">
+            <a class="singlepost" href="/singlepost/<%= post.id %>">
+            
+                <div class="post-top">
+                    <img src="images\user.png" width="30" height="30" alt="User image">
+                </div>
+                <div class="post-content">
+                    <img src=<%=post.urllink %> class="post-image">
+                    <h2><%= post.title %></h2>
+                    <p><%= post.body %></p>
+                </div>            
+            </a>
+            <div class="post-like">
+                <button id="like-button">Like!</button>
+                <p>Likes: <span id="display-likes">0</span></p>
+            </div>
+            <script type="text/javascript">
+                var count = 0;
+                var btn = document.getElementById("like-button");
+                var disp = document.getElementById("display-likes");
+
+                btn.onclick = function () {
+                    count++;
+                    disp.innerHTML = count;
+                    this.disabled = true;
+                }
+            </script>
+        </div>
+        <% }) %>
+        <% } else { %>
+        <div class="no-posts">
+            <p>You haven't posted anything yet.</p>
+        </div>
+        <% } %>
 
     </div>
 
     <%- include('./partials/footer.ejs') %>
 </body>
+
 </html>

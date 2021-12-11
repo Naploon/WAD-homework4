@@ -3,6 +3,7 @@ const pool = require('./database');
 //const cors = require('cors');
 const app = express();
 
+
 // register the ejs view engine
 app.set('view engine', 'ejs');
 
@@ -11,7 +12,9 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
 //app.use(cors());
-app.use(express.static('Public'));
+
+app.use(express.static(__dirname + '/public'));
+
 app.listen(3000, () => {
  console.log("Server is listening to port 3000")
 });
@@ -89,7 +92,7 @@ app.post('/posts', async(req, res) => {
  console.log(post);
  const newpost = await pool.query(
  "INSERT INTO nodetable(title, body, urllink) values ($1, $2, $3)RETURNING*", [post.title, post.body, post.urllink]
- );
+);
 
 
  res.redirect('posts');
@@ -97,6 +100,8 @@ app.post('/posts', async(req, res) => {
  console.error(err.message)
  }
 });
+
+
 
 
 app.get('/addnewpost', (req, res) => {

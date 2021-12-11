@@ -2,13 +2,18 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=>, initial-scale=1.0">
+<link href="/css/style.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/js/script.js"></script>
 <title> Create a post</title>
 <body>
-    <h1>Create a post</h1>
     <%- include('./partials/navbar.ejs') %>
 
     <br>
+    <br>
+    
     <div class="create-post">
+        <h1>Create a post</h1>
+        
         <form action="/posts" method="POST">
             <label for="title">Post title:</label>
             <input type="text" id="title" name="title" required><br><br>
